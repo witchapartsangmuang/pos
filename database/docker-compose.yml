@@ -1,0 +1,44 @@
+version: '3.5'
+services:
+  db:
+    container_name: db
+    image: postgres:11
+    restart: always
+    env_file:
+      .env
+    # environment:
+    #   POSTGRES_PASSWORD: '1234'
+    #   POSTGRES_USER: admin
+    #   POSTGRES_DB: dbDemo
+    volumes:
+      - .:/database
+    # networks:
+      # - bingo-four-stars
+      # bingo-four-stars:
+        # ipv4_address: 172.18.0.2
+    ports:
+     - "5432:5432"
+
+  pgadmin:
+    container_name: pgadmin
+    image: dpage/pgadmin4
+    # environment:
+    #   - PGADMIN_DEFAULT_EMAIL=admin@mail.com
+    #   - PGADMIN_DEFAULT_PASSWORD=1234
+    env_file:
+      .env
+    # networks:
+      # - bingo-four-stars
+      # bingo-four-stars:
+        # ipv4_address: 172.18.0.3
+    ports:
+      - "4000:80"
+
+# networks:
+#   bingo-four-stars:
+#     name: bingo-four-stars
+#     driver: bridge
+#     ipam:
+#       config:
+#         - subnet: 172.18.0.0/16
+        # - gateway: 172.18.0.1
